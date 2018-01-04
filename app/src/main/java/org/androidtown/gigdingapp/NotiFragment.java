@@ -17,6 +17,7 @@ public class NotiFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_noti, container, false);
+        //
     }
 
 }
