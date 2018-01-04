@@ -57,19 +57,18 @@ public class DBManager {
         mDataBase.execSQL(sql);
     }
 
-    public boolean insertUserRow(String UserId, String Pwd) {
+    public void insertUserRow(String UserId, String Pwd) {
         Cursor cs = getUserId(UserId);
         if (cs == null || cs.getCount() == 0) {
-            cs.close();
-            return false;
-        } else {
-            cs.close();
             ContentValues initialValues = new ContentValues();
             initialValues.put("user_id", UserId);
             initialValues.put("pwd", Pwd);
             mDataBase.insert(TABLE_USER, null, initialValues);
-            return true;
+        } else {
+            updateUserPwd(UserId, Pwd);
+
         }
+        cs.close();
     }
 
     public void updateUserPwd(String UserId, String Pwd) {
