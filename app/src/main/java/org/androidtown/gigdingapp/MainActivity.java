@@ -2,9 +2,10 @@ package org.androidtown.gigdingapp;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -78,21 +80,43 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Fragment fragment = null;
+        String title = getString(R.string.app_name);
+
         int id = item.getItemId();
 
         switch (id) {
             case R.id.nav_noti:
+                fragment = new NotiFragment();
+                title = "공지사항";
                 break;
             case R.id.nav_project:
+                fragment = new ProFragment();
+                title = "프로젝트관리";
                 break;
             case R.id.nav_schedule:
+                fragment = new ScheduleFragment();
+                title = "스케쥴관리";
                 break;
             case R.id.nav_map:
+                fragment = new MapFragment();
+                title = "지도";
                 break;
             case R.id.nav_intranet:
                 break;
             default:
                 break;
+        }
+
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_fragment_layout, fragment);
+            ft.commit();
+        }
+
+        // set the toolbar title
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
