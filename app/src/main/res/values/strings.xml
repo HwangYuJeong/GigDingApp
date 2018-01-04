@@ -5,4 +5,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="send_page_url">http://www.calebslab.com/calebslab/caleb/android_php.php</string>
 </resources>
