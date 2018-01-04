@@ -7,19 +7,19 @@
         <item
             android:id="@+id/nav_noti"
             android:icon="@android:drawable/stat_notify_more"
-            android:title="공지사항" />
+            android:title="@string/nav_noti" />
         <item
             android:id="@+id/nav_project"
             android:icon="@android:drawable/ic_menu_manage"
-            android:title="프로젝트관리" />
+            android:title="@string/nav_project" />
         <item
             android:id="@+id/nav_schedule"
             android:icon="@android:drawable/ic_menu_today"
-            android:title="스케줄관리" />
+            android:title="@string/nav_schedule" />
         <item
             android:id="@+id/nav_map"
             android:icon="@android:drawable/ic_dialog_map"
-            android:title="지도" />
+            android:title="@string/nav_map" />
     </group>
 
     <item android:title="Communicate">
@@ -27,7 +27,7 @@
             <item
                 android:id="@+id/nav_intranet"
                 android:icon="@android:drawable/ic_menu_set_as"
-                android:title="인트라넷" />
+                android:title="@string/nav_intranet" />
         </menu>
     </item>
 

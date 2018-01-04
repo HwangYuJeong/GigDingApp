@@ -8,4 +8,10 @@
 
     <string name="send_page_url">http://www.calebslab.com/calebslab/caleb/android_php.php</string>
     <string name="hello_blank_fragment">두둠칫두둠칫</string>
+
+    <string name="nav_noti">공지사항</string>
+    <string name="nav_project">프로젝트/팀원관리</string>
+    <string name="nav_schedule">스케줄관리</string>
+    <string name="nav_map">지도</string>
+    <string name="nav_intranet">인트라넷</string>
 </resources>

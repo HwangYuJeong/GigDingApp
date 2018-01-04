@@ -88,21 +88,23 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_noti:
                 fragment = new NotiFragment();
-                title = "공지사항";
+                title = getString(R.string.nav_noti);
                 break;
             case R.id.nav_project:
                 fragment = new ProFragment();
-                title = "프로젝트관리";
+                title = getString(R.string.nav_project);
                 break;
             case R.id.nav_schedule:
                 fragment = new ScheduleFragment();
-                title = "스케쥴관리";
+                title = getString(R.string.nav_schedule);
                 break;
             case R.id.nav_map:
                 fragment = new MapFragment();
-                title = "지도";
+                title = getString(R.string.nav_map);
                 break;
             case R.id.nav_intranet:
+                fragment = new IntranetFragment();
+                title = getString(R.string.nav_intranet);
                 break;
             default:
                 break;
