@@ -1,0 +1,209 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="org.androidtown.gigdingapp.ProFragmentDetail">
+        <!--android:descendantFocusability="blocksDescendants"-->
+
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="■ 프로젝트 정보"
+            android:textSize="20dp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:text="프로젝트 명"
+                    android:textSize="17dp"></TextView>
+
+                <EditText
+                    android:id="@+id/proNameEv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#e1dedd"
+                    android:gravity="left"
+                    android:hint="프로젝트명 입력"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="17dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:text="프로젝트 상세"
+                    android:textSize="17dp"></TextView>
+
+                <EditText
+                    android:id="@+id/proNameDetailEv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#e1dedd"
+                    android:gravity="left"
+                    android:hint="프로젝트상세 입력"
+                    android:paddingLeft="10dp"
+                    android:textSize="17dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:text="플젝 시작일"
+                    android:textSize="17dp"></TextView>
+
+                <TextView
+                    android:id="@+id/proStartTv"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#e1dedd"
+                    android:paddingLeft="10dp"
+                    android:textSize="17dp" />
+
+                <ImageButton
+                    android:id="@+id/proStartCal"
+                    android:layout_width="40dp"
+                    android:layout_height="26dp"
+                    android:src="@android:drawable/ic_menu_my_calendar" />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:text="플젝 종료일"
+                    android:textSize="17dp"></TextView>
+
+                <TextView
+                    android:id="@+id/proEndTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#e1dedd"
+                    android:paddingLeft="10dp"
+                    android:textSize="17dp" />
+
+                <ImageButton
+                    android:id="@+id/proEndCal"
+                    android:layout_width="40dp"
+                    android:layout_height="26dp"
+                    android:src="@android:drawable/ic_menu_my_calendar" />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:text="발주사 정보"
+                    android:textSize="17dp"></TextView>
+
+                <Spinner
+                    android:layout_width="215dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/biz"
+                    android:spinnerMode="dialog" />
+
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:layout_weight="20"
+                android:text="■ 팀원 정보"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/teamAddBtn"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:text="추가"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+
+        <TableLayout
+            android:id="@+id/teamTableLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/savBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="저장" />
+
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="취소" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

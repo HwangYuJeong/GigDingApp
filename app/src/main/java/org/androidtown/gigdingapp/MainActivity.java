@@ -1,9 +1,5 @@
 package org.androidtown.gigdingapp;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,38 +11,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import static com.kakao.util.maps.helper.Utility.getPackageInfo;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static String JJKIM = "[JeongJinKim]";
+    String notiTitle = "";
+    String ProTitle = "";
+    String SchTitle = "";
+    String MapTitle = "";
+    String IntraTitle = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d(JJKIM, "getKeyHash: " + getKeyHash(this)); //해시키
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,6 +42,43 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        init();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String sTitleStr = (String) getSupportActionBar().getTitle();
+
+                if(sTitleStr.equals(notiTitle)) {               //공지사항
+                    Snackbar.make(view, sTitleStr, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                } else if (sTitleStr.equals(ProTitle)) {        //프로젝트 / 팀원관리
+
+                    Fragment fragemnt = new ProFragmentDetail();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.content_fragment_layout, fragemnt).addToBackStack(null).commit();
+
+                } else if (sTitleStr.equals(SchTitle)) {        //일정관리
+                    Snackbar.make(view, sTitleStr, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                } else if (sTitleStr.equals(MapTitle)) {        //지도
+                    Snackbar.make(view, sTitleStr, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                } else if (sTitleStr.equals(IntraTitle)) {      //IntraNet
+                    Snackbar.make(view, sTitleStr, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
+            }
+        });
+
+    }
+
+    private void init() {
+        //타이틀 정보 SET
+        notiTitle = getString(R.string.nav_noti);
+        ProTitle = getString(R.string.nav_project);
+        SchTitle = getString(R.string.nav_schedule);
+        MapTitle = getString(R.string.nav_map);
+        IntraTitle = getString(R.string.nav_intranet);
+
     }
 
     @Override
@@ -102,23 +125,23 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_noti:
                 fragment = new NotiFragment();
-                title = getString(R.string.nav_noti);
+                title = notiTitle;
                 break;
             case R.id.nav_project:
                 fragment = new ProFragment();
-                title = getString(R.string.nav_project);
+                title = ProTitle;
                 break;
             case R.id.nav_schedule:
                 fragment = new ScheduleFragment();
-                title = getString(R.string.nav_schedule);
+                title = SchTitle;
                 break;
             case R.id.nav_map:
                 fragment = new MapFragment();
-                title = getString(R.string.nav_map);
+                title = MapTitle;
                 break;
             case R.id.nav_intranet:
                 fragment = new IntranetFragment();
-                title = getString(R.string.nav_intranet);
+                title = IntraTitle;
                 break;
             default:
                 break;
@@ -126,35 +149,17 @@ public class MainActivity extends AppCompatActivity
 
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_fragment_layout, fragment);
-            ft.commit();
+            ft.replace(R.id.content_fragment_layout, fragment).addToBackStack(null).commit();
         }
 
-        // set the toolbar title
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
-        }
+        setActionBarTitle(title);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-
-    public static String getKeyHash(final Context context) {
-        PackageInfo packageInfo = getPackageInfo(context, PackageManager.GET_SIGNATURES);
-        if (packageInfo == null)
-            return null;
-
-        for (Signature signature : packageInfo.signatures) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                return Base64.encodeToString(md.digest(), Base64.NO_WRAP);
-            } catch (NoSuchAlgorithmException e) {
-                Log.w(JJKIM, "Unable to get MessageDigest. signature=" + signature, e);
-            }
-        }
-        return null;
+    public void setActionBarTitle(String title){
+        if(getSupportActionBar() != null) getSupportActionBar().setTitle(title);
     }
 }

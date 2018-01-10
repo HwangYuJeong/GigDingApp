@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="team">
+        <item>이일표</item>
+        <item>이은표</item>
+        <item>김수범</item>
+        <item>노종현</item>
+        <item>박진호</item>
+        <item>김정진</item>
+        <item>황유정</item>
+        <item>남기완</item>
+        <item>김기훈</item>
+    </string-array>
+    <string-array name="biz">
+        <item>NHBANK:NH농협은행</item>
+        <item>NHCARD:농협카드</item>
+        <item>SHBANK:신한은행</item>
+        <item>SHCARD:신한카드</item>
+        <item>KBSTAR:국민은행</item>
+        <item>KBCARD:KB국민카드</item>
+        <item>SCBANK:SC제일은행</item>
+        <item>KIBANK:KIBANK</item>
+        <item>HANABANK:하나은행</item>
+        <item>HDCAPITAL:현대캐피탈</item>
+        <item>HDCARD:현대카드</item>
+        <item>HANACAPITAL:하나캐피탈</item>
+        <item>KDBLIFE:KDB생명</item>
+        <item>IMERITZ:메리츠증권</item>
+        <item>ETC:기타</item>
+    </string-array>
+</resources>
