@@ -124,7 +124,6 @@ public class ProFragment extends Fragment {
             args.putString("proName", (String) hashMap.get(1));
             args.putString("teamCnt", (String) hashMap.get(2));
 
-
             Fragment fragemnt = new ProFragmentDetail();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             fragemnt.setArguments(args);

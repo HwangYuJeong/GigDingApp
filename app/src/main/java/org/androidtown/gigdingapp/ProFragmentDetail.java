@@ -73,7 +73,6 @@ public class ProFragmentDetail extends Fragment implements View.OnClickListener,
 
     public void onStart() {
         super.onStart();
-        // 타이틀 SET
         AppCompatActivity AppCompat = (AppCompatActivity)getActivity();
         AppCompat.getSupportActionBar().setTitle(getString(R.string.nav_project_detail));
         AppCompat.findViewById(R.id.fab).setVisibility(View.INVISIBLE);
