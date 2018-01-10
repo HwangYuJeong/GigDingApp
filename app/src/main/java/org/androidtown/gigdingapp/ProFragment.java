@@ -135,7 +135,10 @@ public class ProFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.nav_project));
+        // 타이틀 SET
+        AppCompatActivity AppCompat = (AppCompatActivity)getActivity();
+        AppCompat.getSupportActionBar().setTitle(getString(R.string.nav_project));
+        AppCompat.findViewById(R.id.fab).setVisibility(View.VISIBLE);
     }
 
 }

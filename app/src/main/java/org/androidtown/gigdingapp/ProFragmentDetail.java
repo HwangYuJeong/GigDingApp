@@ -3,6 +3,7 @@ package org.androidtown.gigdingapp;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -73,11 +74,12 @@ public class ProFragmentDetail extends Fragment implements View.OnClickListener,
     public void onStart() {
         super.onStart();
         // 타이틀 SET
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.nav_project_detail));
+        AppCompatActivity AppCompat = (AppCompatActivity)getActivity();
+        AppCompat.getSupportActionBar().setTitle(getString(R.string.nav_project_detail));
+        AppCompat.findViewById(R.id.fab).setVisibility(View.INVISIBLE);
     }
 
     private void init() {
-
 
         at = getActivity();
         arrayTmp = getResources().getStringArray(R.array.team);
