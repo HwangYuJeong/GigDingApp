@@ -2,7 +2,6 @@ package org.androidtown.gigdingapp.common;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,9 +37,6 @@ public class MyAdapter extends ArrayAdapter {
         viewType = Type;
         lnf = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-
-        Log.d("MyAdapter", "arrayDataLIst.size()   = " + arrayDataLIst.size());
     }
 
     @Override
@@ -95,8 +91,6 @@ public class MyAdapter extends ArrayAdapter {
 
         } else if (viewType == ITEM_VIEW_TYPE_SCH) {
             HashMap map = (HashMap) arrayDataLIst.get(position);
-            Log.d("MyAdapter", "0번째  = " + String.valueOf(map.get(0)));
-
 
             final SchRowDataViewHolder viewHolder;
             if (convertView == null) {
