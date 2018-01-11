@@ -15,10 +15,11 @@ import org.androidtown.gigdingapp.common.MyAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends Fragment implements ListView.OnItemClickListener {
 
     ArrayList arrayProjectList = new ArrayList();
     ViewGroup schView;
+    MyAdapter adapter;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -41,24 +42,10 @@ public class ScheduleFragment extends Fragment {
             arrayProjectList.add(map);
         }
 
+        adapter = new MyAdapter(getActivity(), R.layout.sch_list_row, arrayProjectList, 3);
+
         ListView listV = (ListView) schView.findViewById(R.id.SchListView);
-        final MyAdapter adapter = new MyAdapter(getActivity(), R.layout.sch_list_row, arrayProjectList, 3);
-        listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HashMap hashMap = new HashMap((HashMap) adapter.getItem(position));
-
-                Bundle args = new Bundle();
-                args.putString("proNo", (String) hashMap.get(0));
-                args.putString("proName", (String) hashMap.get(1));
-                args.putString("teamCnt", (String) hashMap.get(2));
-
-                Fragment fragemnt = new ProFragmentDetail();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                fragemnt.setArguments(args);
-                ft.replace(R.id.content_fragment_layout, fragemnt).addToBackStack(null).commit();
-            }
-        });
+        listV.setOnItemClickListener(this);
         listV.setAdapter(adapter);
         return schView;
     }
@@ -72,4 +59,18 @@ public class ScheduleFragment extends Fragment {
         AppCompat.findViewById(R.id.fab).setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        HashMap hashMap = new HashMap((HashMap) adapter.getItem(position));
+
+        Bundle args = new Bundle();
+        args.putString("proNo", (String) hashMap.get(0));
+        args.putString("proName", (String) hashMap.get(1));
+        args.putString("teamCnt", (String) hashMap.get(2));
+
+        Fragment fragemnt = new ProFragmentDetail();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        fragemnt.setArguments(args);
+        ft.replace(R.id.content_fragment_layout, fragemnt).addToBackStack(null).commit();
+    }
 }

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
-    tools:context="org.androidtown.gigdingapp.SchFragment">
+    tools:context="org.androidtown.gigdingapp.ScheduleFragment">
 
     <ListView
         android:id="@+id/SchListView"
