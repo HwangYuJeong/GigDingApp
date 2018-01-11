@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/schDateTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="10dp"
+        android:text="2017-10-13"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/schTitleTv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="10dp"
+        android:text="안드로이드 프로젝트 회의"
+        android:textSize="20dp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/schPeriodTv"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="10dp"
+        android:text="2018년 10월 20일(09시) ~ 2018년 12월 03일(17시)"
+        android:textSize="14dp"></TextView>
+</LinearLayout>
