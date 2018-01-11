@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +61,10 @@ public class MainActivity extends AppCompatActivity
                 } else if (sTitleStr.equals(SchTitle)) {        //일정관리
                     Snackbar.make(view, sTitleStr, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 } else if (sTitleStr.equals(MapTitle)) {        //지도
-                    Snackbar.make(view, sTitleStr, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+//                    Snackbar.make(view, sTitleStr, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Fragment fragment = new MapFragmentDetail();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.content_fragment_layout, fragment).addToBackStack(null).commit();
                 } else if (sTitleStr.equals(IntraTitle)) {      //IntraNet
                     Snackbar.make(view, sTitleStr, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }

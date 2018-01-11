@@ -1,6 +1,7 @@
 package org.androidtown.gigdingapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.daum.mf.map.api.CalloutBalloonAdapter;
+import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapPointBounds;
+import net.daum.mf.map.api.MapPolyline;
 import net.daum.mf.map.api.MapView;
 
 public class MapFragment extends Fragment {
@@ -38,6 +42,8 @@ public class MapFragment extends Fragment {
         for(int i = 0; i < 2; i++) {
             setMarker(mapView, mapPoint[i], i);
         }
+
+        drawPolyline(mapPoint);
         mapViewContainer.addView(mapView);
 
         return view;
@@ -48,6 +54,22 @@ public class MapFragment extends Fragment {
         String tel = "010-0000-1111";
         String damdang = "당다라당당당당당";
     }
+
+    public void drawPolyline(MapPoint[] mp) {
+        MapPolyline polyline = new MapPolyline();
+        polyline.setLineColor(Color.argb(128, 255, 51, 0));
+
+        mapView.addPolyline(polyline);
+
+        for(int i = 0; i < mp.length; i++) {
+            polyline.addPoint(mp[i]);
+        }
+
+        MapPointBounds mapPointBounds = new MapPointBounds(polyline.getMapPoints());
+        int padding = 100; // px
+        mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(mapPointBounds, padding));
+    }
+
 
     public void setMarker(MapView mapView, MapPoint mapPoint, int index) {
         MapPOIItem marker = new MapPOIItem();
