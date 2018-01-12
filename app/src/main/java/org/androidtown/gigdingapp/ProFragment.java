@@ -1,12 +1,15 @@
 package org.androidtown.gigdingapp;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -15,11 +18,12 @@ import org.androidtown.gigdingapp.common.MyAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ProFragment extends Fragment implements ListView.OnItemClickListener{
+public class ProFragment extends Fragment implements ListView.OnItemClickListener {
 
     ArrayList arrayProjectList = new ArrayList();
     ViewGroup proView;
     MyAdapter adapter;
+    ListView listV;
 
     public ProFragment() {
         // Required empty public constructor
@@ -31,30 +35,31 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_pro, container, false);
 
-        proView = (ViewGroup) inflater.inflate(R.layout.fragment_pro, container, false);
-
-        for (int idx = 0; idx < 15; idx++) {
-            HashMap map = new HashMap();
-            map.put(0, "프로젝트 " + String.valueOf(idx));
-            map.put(1, "프로젝명 " + String.valueOf(idx));
-            map.put(2, String.valueOf(idx) + "명");
-
-            arrayProjectList.add(map);
+        if (proView == null) {
+            proView = (ViewGroup) inflater.inflate(R.layout.fragment_pro, container, false);
+            adapter = new MyAdapter(getActivity(), R.layout.project_list_row, arrayProjectList, 1);
+            listV = (ListView) proView.findViewById(R.id.ProListView);
+            listV.setOnItemClickListener(this);
+        } else {
+            ViewGroup parentViewGroup = (ViewGroup) proView.getParent();
+            if (parentViewGroup != null) {
+                parentViewGroup.removeView(proView);
+            }
         }
-        adapter = new MyAdapter(getActivity(), R.layout.project_list_row, arrayProjectList, 1);
-        ListView listV = (ListView) proView.findViewById(R.id.ProListView);
-        listV.setOnItemClickListener(this);
-        listV.setAdapter(adapter);
-
         return proView;
     }
 
-    public void onStart() {
-        super.onStart();
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         // 타이틀 SET
         AppCompatActivity AppCompat = (AppCompatActivity) getActivity();
         AppCompat.getSupportActionBar().setTitle(getString(R.string.nav_project));
         AppCompat.findViewById(R.id.fab).setVisibility(View.VISIBLE);
+
+        putArrayLIst();
+        listV.setAdapter(adapter);
     }
 
     @Override
@@ -71,4 +76,17 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
         fragemnt.setArguments(args);
         ft.replace(R.id.content_fragment_layout, fragemnt).addToBackStack(null).commit();
     }
+
+    private void putArrayLIst() {
+        arrayProjectList.clear();
+        for (int idx = 0; idx < 5; idx++) {
+            HashMap map = new HashMap();
+            map.put(0, "프로젝트 " + String.valueOf(idx));
+            map.put(1, "프로젝명 " + String.valueOf(idx));
+            map.put(2, String.valueOf(idx) + "명");
+
+            arrayProjectList.add(map);
+        }
+    }
+
 }
