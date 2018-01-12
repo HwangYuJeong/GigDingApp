@@ -28,4 +28,13 @@
         <item>IMERITZ:메리츠증권</item>
         <item>ETC:기타</item>
     </string-array>
+    <string-array name="push">
+        <item>0분전</item>
+        <item>5분전</item>
+        <item>10분전</item>
+        <item>15분전</item>
+        <item>30분전</item>
+        <item>1시간전</item>
+        <item>1일전</item>
+    </string-array>
 </resources>

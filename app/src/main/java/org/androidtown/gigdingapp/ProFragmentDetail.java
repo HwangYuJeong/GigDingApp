@@ -87,6 +87,11 @@ public class ProFragmentDetail extends Fragment implements View.OnClickListener,
             if (args != null) {
                 Toast.makeText(at, "proNo = " + args.getString("proNo"), Toast.LENGTH_SHORT).show();
             }
+        } else {
+            ViewGroup parentViewGroup = (ViewGroup) proDetailView.getParent();
+            if (parentViewGroup != null) {
+                parentViewGroup.removeView(proDetailView);
+            }
         }
 
         return proDetailView;

@@ -13,6 +13,7 @@
     <string name="nav_project">프로젝트/팀원관리</string>
     <string name="nav_project_detail">프로젝트/팀원관리 상세</string>
     <string name="nav_schedule">스케줄관리</string>
+    <string name="nav_schedule_detail">스케줄관리 상세</string>
     <string name="nav_map">지도</string>
     <string name="nav_intranet">인트라넷</string>
 </resources>

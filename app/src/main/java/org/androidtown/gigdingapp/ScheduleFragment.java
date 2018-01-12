@@ -69,11 +69,11 @@ public class ScheduleFragment extends Fragment implements ListView.OnItemClickLi
         HashMap hashMap = new HashMap((HashMap) adapter.getItem(position));
 
         Bundle args = new Bundle();
-        args.putString("proNo", (String) hashMap.get(0));
-        args.putString("proName", (String) hashMap.get(1));
-        args.putString("teamCnt", (String) hashMap.get(2));
+//        args.putString("proNo", (String) hashMap.get(0));
+//        args.putString("proName", (String) hashMap.get(1));
+//        args.putString("teamCnt", (String) hashMap.get(2));
 
-        Fragment fragemnt = new ProFragmentDetail();
+        Fragment fragemnt = new ScheduleFragmentDetail();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         fragemnt.setArguments(args);
         ft.replace(R.id.content_fragment_layout, fragemnt).addToBackStack(null).commit();
