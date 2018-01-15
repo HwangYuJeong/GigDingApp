@@ -25,7 +25,7 @@ import org.androidtown.gigdingapp.R;
 
 import java.util.Calendar;
 
-public class MapFragmentDetail extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+public class MapFragmentDetail extends Fragment implements View.OnClickListener{
 
     // 동적 레이아웃 생성 시 필요한 변수
     int nTR = 1000; //TableRow
@@ -34,23 +34,14 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener,
     int iTeamStackCnt = 0;  //팀원 추가버튼 스택 건수
     int iTeamCnt = 0;       //팀원 추가된 현재건수
 
-    int currentYear = 0;        //현재기준 년도
-    int currentMonth = 0;       //현재기준 월
-    int currentDay = 0;         //현재기준 일
-    int datePickerflag = 0;     //달력 flag
-    int FLAG_START_DATE = 0;    //시작일 변수
-    int FLAG_END_DATE = 1;      //종료일 변수
-
     FragmentActivity at;
     String[] arrayTmp;              //팀원 array 정보
     ArrayAdapter<String> adapter;   //팀원 정보 adapter
 
-    ViewGroup proDetailView;
+    ViewGroup mapDetailView;
     TableLayout teamTableLy;
     EditText proNameEv;     //프로젝트명 EditView
     EditText proDetailEv;   //프로젝트 상세 EditView
-    TextView proStartTv;    //프로젝트 시작일 View
-    TextView proEndTv;      //프로젝트 종료일 View
 
 
     public MapFragmentDetail() {
@@ -63,17 +54,17 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener,
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_pro, container, false);
 
-        proDetailView = (ViewGroup) inflater.inflate(R.layout.fragment_map_detail, container, false);
+        mapDetailView = (ViewGroup) inflater.inflate(R.layout.fragment_map_detail, container, false);
 
         //init();
 
-        return proDetailView;
+        return mapDetailView;
     }
 
     public void onStart() {
         super.onStart();
         AppCompatActivity AppCompat = (AppCompatActivity)getActivity();
-        AppCompat.getSupportActionBar().setTitle(getString(R.string.nav_project_detail));
+        AppCompat.getSupportActionBar().setTitle(getString(R.string.nav_map_detail));
         AppCompat.findViewById(R.id.fab).setVisibility(View.INVISIBLE);
     }
 
@@ -81,29 +72,18 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener,
 
         at = getActivity();
         arrayTmp = getResources().getStringArray(R.array.team);
-        teamTableLy = (TableLayout) proDetailView.findViewById(R.id.teamTableLy);
+        teamTableLy = (TableLayout) mapDetailView.findViewById(R.id.teamTableLy);
         adapter = new ArrayAdapter<String>(at, android.R.layout.simple_spinner_item, arrayTmp);
 
-        proDetailView.findViewById(R.id.teamAddBtn).setOnClickListener(this);
-        proDetailView.findViewById(R.id.savBtn).setOnClickListener(this);
-        proDetailView.findViewById(R.id.proStartCal).setOnClickListener(this);
-        proDetailView.findViewById(R.id.proEndCal).setOnClickListener(this);
-
-        proStartTv = proDetailView.findViewById(R.id.proStartTv);
-        proEndTv = proDetailView.findViewById(R.id.proEndTv);
-        proNameEv = proDetailView.findViewById(R.id.proNameEv);
-        proDetailEv = proDetailView.findViewById(R.id.proNameDetailEv);
+        mapDetailView.findViewById(R.id.teamAddBtn).setOnClickListener(this);
+        mapDetailView.findViewById(R.id.Map_savBtn).setOnClickListener(this);
+        proNameEv = mapDetailView.findViewById(R.id.proNameEv);
+        proDetailEv = mapDetailView.findViewById(R.id.proNameDetailEv);
 
         Bundle args = getArguments();
         if (args != null) {
             Toast.makeText(at, "proNo = " + args.getString("proNo"), Toast.LENGTH_SHORT).show();
         }
-
-        Calendar cal = Calendar.getInstance();
-        currentYear = cal.get(Calendar.YEAR);
-        currentMonth = cal.get(Calendar.MONTH);
-        currentDay = cal.get(Calendar.DAY_OF_MONTH);
-
     }
 
     /**
@@ -145,7 +125,7 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener,
             @Override
             public void onClick(View v) {
                 int iCnt = Integer.parseInt(String.valueOf(v.getId()).substring(1));
-                TableRow tbR = (TableRow) proDetailView.findViewById(nTR + iCnt);
+                TableRow tbR = (TableRow) mapDetailView.findViewById(nTR + iCnt);
                 tbR.removeAllViews();
                 iTeamCnt = iTeamCnt - 1;
             }
@@ -168,18 +148,10 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener,
                 iTeamStackCnt = iTeamStackCnt + 1;
                 iTeamCnt = iTeamCnt + 1;
                 break;
-            case R.id.proStartCal:
-                datePickerflag = FLAG_START_DATE;                                                              //달력 flag 시작일로 SET
-                new DatePickerDialog(at, this, currentYear, currentMonth, currentDay).show();       //현재일자 기준으로 달력 화면호출
-                break;
-            case R.id.proEndCal:
-                datePickerflag = FLAG_END_DATE;                                                                //달력 flag 종료일로 SET
-                new DatePickerDialog(at, this, currentYear, currentMonth, currentDay).show();       //현재일자 기준으로 달력 화면호출
-                break;
-            case R.id.savBtn:
+            case R.id.Map_savBtn:
                 saveContents();
                 break;
-            case R.id.cancelBtn:
+            case R.id.Map_cancelBtn:
                 //뒤로가기
                 break;
             default:
@@ -204,28 +176,12 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener,
 //            proDetailEv.requestFocus();
             return;
         }
-        if ("".equals(String.valueOf(proStartTv.getText()))) {
-            Toast.makeText(at, "프로젝트 시작일 입력하세요", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if ("".equals(String.valueOf(proEndTv.getText()))) {
-            Toast.makeText(at, "프로젝트 종료일 입력하세요", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        int startDate = Integer.parseInt(String.valueOf(proStartTv.getText()).replaceAll("-", ""));
-        int endDate = Integer.parseInt(String.valueOf(proEndTv.getText()).replaceAll("-", ""));
-        if (startDate >= endDate) {
-            Toast.makeText(at, "프로젝트 시작일과 종료일을 확인해 주세요", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
 
         //팀원 정보 입력값 체크
         String sTmp = "";
         if (iTeamCnt > 0) {
             for (int idx = 0; idx < iTeamStackCnt + 1; idx++) {
-                Spinner sp = (Spinner) proDetailView.findViewById(nSP + idx);
+                Spinner sp = (Spinner) mapDetailView.findViewById(nSP + idx);
                 if (sp != null) {
                     sTmp += String.valueOf(sp.getSelectedItem()) + ",";
                 }
@@ -243,26 +199,4 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener,
         // Send Post Data To PHP
 
     }
-
-    /**
-     * 달력 선택 시 CallBack 함수
-     */
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-        String sTmpDateYear = String.valueOf(year);
-        String sTmpDateMonth = String.valueOf(month + 1);
-        String sTmpDateDay = String.valueOf(dayOfMonth);
-
-        sTmpDateMonth = sTmpDateMonth.length() == 2 ? sTmpDateMonth : "0" + sTmpDateMonth;
-        sTmpDateDay = sTmpDateDay.length() == 2 ? sTmpDateDay : "0" + sTmpDateDay;
-
-        String sTmpYYYYMMDD = sTmpDateYear + "-" + sTmpDateMonth + "-" + sTmpDateDay;
-        if (datePickerflag == FLAG_START_DATE) {
-            proStartTv.setText(sTmpYYYYMMDD);
-        } else if (datePickerflag == FLAG_END_DATE) {
-            proEndTv.setText(sTmpYYYYMMDD);
-        }
-    }
-
 }
