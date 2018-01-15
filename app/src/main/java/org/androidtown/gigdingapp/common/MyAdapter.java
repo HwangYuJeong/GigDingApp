@@ -79,11 +79,10 @@ public class MyAdapter extends ArrayAdapter {
                 viewHolder = (ProRowDataViewHolder) convertView.getTag();
             }
             HashMap map = (HashMap) arrayDataLIst.get(position);
-            viewHolder.proNoTv.setText(String.valueOf(map.get(0)));
-            viewHolder.proNameTv.setText(String.valueOf(map.get(1)));
-            viewHolder.teamCntTv.setText(String.valueOf(map.get(2)));
-            viewHolder.endTimeTv.setText(String.valueOf(map.get(3)));
-
+            viewHolder.proNoTv.setText(String.valueOf(map.get("project_code")));
+            viewHolder.proNameTv.setText(String.valueOf(map.get("project_name")));
+            viewHolder.teamCntTv.setText(String.valueOf(map.get("start_ymd")));
+            viewHolder.endTimeTv.setText(String.valueOf(map.get("end_ymd")));
 
         } else if (viewType == ITEM_VIEW_TYPE_MAP) {
             // 지도

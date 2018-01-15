@@ -121,7 +121,7 @@
                     android:textSize="17dp" />
 
                 <TextView
-                    android:id="@+id/schEndTImeTv"
+                    android:id="@+id/schEndTimeTv"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_weight="1"
@@ -183,6 +183,7 @@
                     android:textSize="17dp" />
 
                 <ImageButton
+                    android:id="@+id/mapImgBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@android:drawable/ic_dialog_map" />
