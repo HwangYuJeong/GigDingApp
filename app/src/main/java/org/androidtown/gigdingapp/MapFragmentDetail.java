@@ -1,11 +1,13 @@
 package org.androidtown.gigdingapp;
 
 
-import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,17 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.androidtown.gigdingapp.R;
-
-import java.util.Calendar;
 
 public class MapFragmentDetail extends Fragment implements View.OnClickListener{
 
@@ -33,6 +31,7 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener{
     int nBT = 3000; //Button
     int iTeamStackCnt = 0;  //팀원 추가버튼 스택 건수
     int iTeamCnt = 0;       //팀원 추가된 현재건수
+    private String TAG = "[JJKIM LOG]";
 
     FragmentActivity at;
     String[] arrayTmp;              //팀원 array 정보
@@ -40,8 +39,11 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener{
 
     ViewGroup mapDetailView;
     TableLayout teamTableLy;
-    EditText proNameEv;     //프로젝트명 EditView
-    EditText proDetailEv;   //프로젝트 상세 EditView
+    EditText cNameEt;     //거래처명 EditText
+    EditText pNameEt;   //담당자명 EditText
+    EditText TelEt; //연락처 EditText
+    EditText AddressEt; //주소 EditText
+    ImageButton AddressIb; //주소찾기 POPUP Button
 
 
     public MapFragmentDetail() {
@@ -56,7 +58,7 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener{
 
         mapDetailView = (ViewGroup) inflater.inflate(R.layout.fragment_map_detail, container, false);
 
-        //init();
+        init();
 
         return mapDetailView;
     }
@@ -71,14 +73,19 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener{
     private void init() {
 
         at = getActivity();
-        arrayTmp = getResources().getStringArray(R.array.team);
-        teamTableLy = (TableLayout) mapDetailView.findViewById(R.id.teamTableLy);
-        adapter = new ArrayAdapter<String>(at, android.R.layout.simple_spinner_item, arrayTmp);
+//        arrayTmp = getResources().getStringArray(R.array.team);
+//        teamTableLy = (TableLayout) mapDetailView.findViewById(R.id.teamTableLy);
+//        adapter = new ArrayAdapter<String>(at, android.R.layout.simple_spinner_item, arrayTmp);
 
-        mapDetailView.findViewById(R.id.teamAddBtn).setOnClickListener(this);
+//        mapDetailView.findViewById(R.id.teamAddBtn).setOnClickListener(this);
         mapDetailView.findViewById(R.id.Map_savBtn).setOnClickListener(this);
-        proNameEv = mapDetailView.findViewById(R.id.proNameEv);
-        proDetailEv = mapDetailView.findViewById(R.id.proNameDetailEv);
+        mapDetailView.findViewById(R.id.map_Address_ib).setOnClickListener(this);
+        cNameEt = mapDetailView.findViewById(R.id.map_cName_et);
+        pNameEt = mapDetailView.findViewById(R.id.map_pName_et);
+        TelEt = mapDetailView.findViewById(R.id.map_Tel_et);
+        TelEt.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        AddressEt = mapDetailView.findViewById(R.id.map_Address_et);
+        AddressIb = mapDetailView.findViewById(R.id.map_Address_ib);
 
         Bundle args = getArguments();
         if (args != null) {
@@ -154,6 +161,9 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener{
             case R.id.Map_cancelBtn:
                 //뒤로가기
                 break;
+            case R.id.map_Address_ib:
+                Log.d(TAG, "onClick: map_Address_ib");
+                startActivity(new Intent(getContext(), AddressPopupActivity.class));
             default:
                 break;
         }
@@ -165,15 +175,23 @@ public class MapFragmentDetail extends Fragment implements View.OnClickListener{
     private void saveContents() {
 
         //프로젝트 정보 입력값 체크
-        if ("".equals(String.valueOf(proNameEv.getText()))) {
-            Toast.makeText(at, "프로젝트 명을 입력하세요", Toast.LENGTH_SHORT).show();
-//            proNameEv.requestFocus();
+        if ("".equals(String.valueOf(cNameEt.getText()))) {
+            Toast.makeText(at, "거래처명을 입력하세요", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if ("".equals(String.valueOf(proDetailEv.getText()))) {
-            Toast.makeText(at, "프로젝트 상세를 입력하세요", Toast.LENGTH_SHORT).show();
-//            proDetailEv.requestFocus();
+        if ("".equals(String.valueOf(pNameEt.getText()))) {
+            Toast.makeText(at, "담당자명을 입력하세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if ("".equals(String.valueOf(TelEt.getText()))) {
+            Toast.makeText(at, "전화번호를 입력하세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if ("".equals(String.valueOf(AddressEt.getText()))) {
+            Toast.makeText(at, "주소를 입력하세요", Toast.LENGTH_SHORT).show();
             return;
         }
 

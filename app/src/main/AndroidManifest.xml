@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddressPopupActivity" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="0d9931998ac3d6606b384f61babd460a"/>
     </application>
 
