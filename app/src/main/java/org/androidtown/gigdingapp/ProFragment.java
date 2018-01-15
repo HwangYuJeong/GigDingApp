@@ -28,6 +28,7 @@ import org.androidtown.gigdingapp.common.MyAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,7 +74,6 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
         AppCompat.findViewById(R.id.fab).setVisibility(View.VISIBLE);
 
         serchList();
-        listV.setAdapter(adapter);
     }
 
     @Override
@@ -84,6 +84,8 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
         args.putString("proNo", (String) hashMap.get(0));
         args.putString("proName", (String) hashMap.get(1));
         args.putString("teamCnt", (String) hashMap.get(2));
+        args.putString("startDate", (String) hashMap.get(3));
+        args.putString("endDate", (String) hashMap.get(4));
 
         Fragment fragemnt = new ProFragmentDetail();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -132,8 +134,8 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
             Log.d("JHPARK", "onResponse: " + response.toString());
 
             try {
-                JSONObject jsonObject = new JSONObject(response.toString());
-                JSONArray jsonArray = new JSONArray(jsonObject.getString("output"));
+                JSONObject jsonObject = new JSONObject(String.valueOf(response));
+                JSONArray jsonArray = new JSONArray(jsonObject.getString("result"));
 
                 String project_code = "";
                 String project_name = "";
@@ -142,6 +144,7 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
                 String end_ymd = "";
                 String com_code = "";
                 String com_name = "";
+                int team_cnt=0;
 
                 for(int idx=0; idx<jsonArray.length(); idx++) {
                     JSONObject subJsonObject = new JSONObject(jsonArray.getString(idx));
@@ -154,6 +157,7 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
                     end_ymd = "";
                     com_code = "";
                     com_name = "";
+                    team_cnt = 0;
 
                     project_code = subJsonObject.getString("project_code");
                     project_name = subJsonObject.getString("project_name");
@@ -162,6 +166,8 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
                     end_ymd = subJsonObject.getString("end_ymd");
                     com_code = subJsonObject.getString("com_code");
                     com_name = subJsonObject.getString("com_name");
+                    //team_cnt = subJsonObject.getInt("team_cnt");
+
 
                     map.put("project_code", project_code);
                     map.put("project_name", project_name);
@@ -170,10 +176,15 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
                     map.put("end_ymd", end_ymd);
                     map.put("com_code", com_code);
                     map.put("com_name", com_name);
+                    map.put("team_cnt", team_cnt);
 
                     Log.d("JHPARK", "project_code " + project_code + "   project_name " + project_name+ "   project_detail " + project_detail+
-                            "   start_ymd " + start_ymd+ "   end_ymd " + end_ymd+ "   com_code " + com_code+ "   com_name " + com_name);
+                            "   start_ymd " + start_ymd+ "   end_ymd " + end_ymd+ "   com_code " + com_code+ "   com_name " + com_name + "    team_cnt = " + team_cnt);
+
+                    arrayProjectList.add(map);
                 }
+                Log.d("JHPARK", "arrayProjectList.size()  = " + arrayProjectList.size());
+                listV.setAdapter(adapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -188,6 +199,4 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
             Log.d("JHPARK", "오류!!");
         }
     };
-
-
 }

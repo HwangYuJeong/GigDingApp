@@ -2,6 +2,7 @@ package org.androidtown.gigdingapp.common;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,9 @@ public class MyAdapter extends ArrayAdapter {
 
 
         } else if (viewType == ITEM_VIEW_TYPE_PRO) {
+
+            Log.d("JHPARK", "ITEM_VIEW_TYPE_PRO");
+
             final ProRowDataViewHolder viewHolder;
             if (convertView == null) {
                 convertView = lnf.inflate(resourceLayout, parent, false);
@@ -73,7 +77,8 @@ public class MyAdapter extends ArrayAdapter {
                 viewHolder.proNoTv = (TextView) convertView.findViewById(R.id.proNoTv);
                 viewHolder.proNameTv = (TextView) convertView.findViewById(R.id.proNameTv);
                 viewHolder.teamCntTv = (TextView) convertView.findViewById(R.id.teamCntTv);
-                viewHolder.endTimeTv = (TextView) convertView.findViewById(R.id.endTimeTv);
+                viewHolder.startDateTv = (TextView) convertView.findViewById(R.id.startDateTv);
+                viewHolder.endDateTv = (TextView) convertView.findViewById(R.id.endDateTv);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ProRowDataViewHolder) convertView.getTag();
@@ -81,8 +86,9 @@ public class MyAdapter extends ArrayAdapter {
             HashMap map = (HashMap) arrayDataLIst.get(position);
             viewHolder.proNoTv.setText(String.valueOf(map.get("project_code")));
             viewHolder.proNameTv.setText(String.valueOf(map.get("project_name")));
-            viewHolder.teamCntTv.setText(String.valueOf(map.get("start_ymd")));
-            viewHolder.endTimeTv.setText(String.valueOf(map.get("end_ymd")));
+            viewHolder.teamCntTv.setText(String.valueOf(map.get("team_cnt")));
+            viewHolder.startDateTv.setText(String.valueOf(map.get("start_ymd")));
+            viewHolder.endDateTv.setText(String.valueOf(map.get("end_ymd")));
 
         } else if (viewType == ITEM_VIEW_TYPE_MAP) {
             // 지도

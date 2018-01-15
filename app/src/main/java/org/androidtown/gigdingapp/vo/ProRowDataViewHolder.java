@@ -6,5 +6,6 @@ public class ProRowDataViewHolder {
     public TextView proNoTv;
     public TextView proNameTv;
     public TextView teamCntTv;
-    public TextView endTimeTv;
+    public TextView startDateTv;
+    public TextView endDateTv;
 }
