@@ -103,24 +103,24 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
         String sUrl = "http://www.calebslab.com/calebslab/caleb/android_php.php";
         String sCode = "201";
         String sNowDate = comUT.com_toDate();
+        //sNowDate = sNowDate.substring(0,4) + "-" + sNowDate.substring(5,6);
+        sNowDate = "2016-04";
 
         JSONObject json = null;
         RequestQueue request = Volley.newRequestQueue(getActivity());
 
         // 데이타 세팅
-        HashMap hashMap = new HashMap();
-        hashMap.put("now_date", sNowDate);
-
         JSONObject jsonData = new JSONObject();
         try {
             jsonData.put("code", sCode);
-            jsonData.put("input", hashMap);
+            jsonData.put("now_date", sNowDate);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, sUrl, jsonData, successCallback, failCallback);
         request.add(jsonRequest);
+
 
         /** Volley 에서 사용하는 옵션 **/
         int socketTimeout = 20000;

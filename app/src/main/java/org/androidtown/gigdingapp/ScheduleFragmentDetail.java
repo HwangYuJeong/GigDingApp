@@ -129,7 +129,6 @@ public class ScheduleFragmentDetail extends Fragment implements View.OnClickList
                 break;
             default:
                 break;
-
         }
     }
 
