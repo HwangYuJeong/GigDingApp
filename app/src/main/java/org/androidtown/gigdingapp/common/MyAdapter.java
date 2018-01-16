@@ -67,8 +67,6 @@ public class MyAdapter extends ArrayAdapter {
 
         } else if (viewType == ITEM_VIEW_TYPE_PRO) {
 
-            Log.d("JHPARK", "ITEM_VIEW_TYPE_PRO");
-
             final ProRowDataViewHolder viewHolder;
             if (convertView == null) {
                 convertView = lnf.inflate(resourceLayout, parent, false);

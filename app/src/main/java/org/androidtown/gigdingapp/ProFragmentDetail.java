@@ -100,12 +100,6 @@ public class ProFragmentDetail extends Fragment implements View.OnClickListener,
             proNameEv = proDetailView.findViewById(R.id.proNameEv);
             proDetailEv = proDetailView.findViewById(R.id.proNameDetailEv);
 
-            Bundle args = getArguments();
-            if (args != null) {
-                Toast.makeText(at, "proNo = " + args.getString("proNo"), Toast.LENGTH_SHORT).show();
-                String project_code = args.getString("proNo");
-                serchList(project_code);
-            }
         } else {
             ViewGroup parentViewGroup = (ViewGroup) proDetailView.getParent();
             if (parentViewGroup != null) {
@@ -121,20 +115,17 @@ public class ProFragmentDetail extends Fragment implements View.OnClickListener,
      */
     private void serchList(String project_code) {
 
-        String sUrl = "http://www.calebslab.com/calebslab/caleb/android_php.php";
+        String sUrl = getString(R.string.send_page_url_1);
         String sCode = "202";
 
         JSONObject json = null;
         RequestQueue request = Volley.newRequestQueue(getActivity());
 
         // 데이타 세팅
-        HashMap hashMap = new HashMap();
-        hashMap.put("project_code", project_code);
-
         JSONObject jsonData = new JSONObject();
         try {
             jsonData.put("code", sCode);
-            jsonData.put("input", hashMap);
+            jsonData.put("project_code", project_code);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -186,6 +177,14 @@ public class ProFragmentDetail extends Fragment implements View.OnClickListener,
         currentYear = cal.get(Calendar.YEAR);
         currentMonth = cal.get(Calendar.MONTH);
         currentDay = cal.get(Calendar.DAY_OF_MONTH);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            Toast.makeText(at, "proNo = " + args.getString("proNo"), Toast.LENGTH_SHORT).show();
+            String project_code = args.getString("proNo");
+            serchList(project_code);
+        }
+
     }
 
     /**

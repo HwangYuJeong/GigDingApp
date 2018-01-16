@@ -81,11 +81,11 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
         HashMap hashMap = new HashMap((HashMap) adapter.getItem(position));
 
         Bundle args = new Bundle();
-        args.putString("proNo", (String) hashMap.get(0));
-        args.putString("proName", (String) hashMap.get(1));
-        args.putString("teamCnt", (String) hashMap.get(2));
-        args.putString("startDate", (String) hashMap.get(3));
-        args.putString("endDate", (String) hashMap.get(4));
+        args.putString("project_code", (String) hashMap.get("project_code"));
+        args.putString("project_name", (String) hashMap.get("project_name"));
+        args.putInt("team_cnt", (Integer) hashMap.get("team_cnt"));
+        args.putString("start_ymd", (String) hashMap.get("start_ymd"));
+        args.putString("end_ymd", (String) hashMap.get("end_ymd"));
 
         Fragment fragemnt = new ProFragmentDetail();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -100,10 +100,11 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
         ComUtil comUT = new ComUtil();
 
         arrayProjectList.clear();
-        String sUrl = "http://www.calebslab.com/calebslab/caleb/android_php.php";
+        String sUrl = getString(R.string.send_page_url_1);
         String sCode = "201";
         String sNowDate = comUT.com_toDate();
-        //sNowDate = sNowDate.substring(0,4) + "-" + sNowDate.substring(5,6);
+        sNowDate = sNowDate.substring(0,4) + "-" + sNowDate.substring(4,6);
+        Log.d("JHPARK", "sNowDate   = " + sNowDate);
         sNowDate = "2016-04";
 
         JSONObject json = null;
@@ -166,7 +167,7 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
                     end_ymd = subJsonObject.getString("end_ymd");
                     com_code = subJsonObject.getString("com_code");
                     com_name = subJsonObject.getString("com_name");
-                    //team_cnt = subJsonObject.getInt("team_cnt");
+                    team_cnt = subJsonObject.getInt("team_cnt");
 
 
                     map.put("project_code", project_code);
@@ -183,7 +184,6 @@ public class ProFragment extends Fragment implements ListView.OnItemClickListene
 
                     arrayProjectList.add(map);
                 }
-                Log.d("JHPARK", "arrayProjectList.size()  = " + arrayProjectList.size());
                 listV.setAdapter(adapter);
 
             } catch (JSONException e) {
